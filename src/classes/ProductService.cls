@@ -14,7 +14,7 @@ public class ProductService {
 		try {
 			Product__c product =
 			[SELECT Name, Description__c, Type__c, Family__c, Image__c, Price__c
-			FROM Product__c WHERE Name = :name];
+			FROM Product__c WHERE Name = :name LIMIT 1];
 
 			return product;
 		} catch (Exception e) {
