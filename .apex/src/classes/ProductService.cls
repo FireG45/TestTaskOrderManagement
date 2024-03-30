@@ -40,4 +40,13 @@ public class ProductService {
 			throw new HandledException(e.getMessage());
 		}
 	}
+
+	public static void deleteById(Id id) {
+		try {
+			delete [select Id from Product__c where Id = :id];
+		} catch (Exception e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
 }

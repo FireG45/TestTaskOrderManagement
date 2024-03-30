@@ -57,4 +57,28 @@ private class ProductServiceTest {
 			System.assertEquals(refProducts.get(i), gotProducts.get(i));
 		}
 	}
+
+	@IsTEst
+	static void testDeleteById() {
+		Product__c[] refProducts = new Product__c[] {
+				new Product__c(Name = 'Test1', Description__c = 'DESC1'),
+				new Product__c(Name = 'Test2', Description__c = 'DESC2'),
+				new Product__c(Name = 'Test3', Description__c = 'DESC3'),
+				new Product__c(Name = 'Test4', Description__c = 'DESC4')
+		};
+
+		insert refProducts;
+
+		Product__c[] beforeProducts = [select Id from Product__c];
+
+		Id refId = beforeProducts.get(0).Id;
+		ProductService.deleteById(refId);
+
+		Product__c[] afterProducts = [select Id from Product__c];
+
+		for (Product__c product : afterProducts) {
+			System.assertNotEquals(refId, product.Id);
+		}
+	}
+
 }
