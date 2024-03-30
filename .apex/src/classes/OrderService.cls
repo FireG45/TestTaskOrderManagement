@@ -1,41 +1,42 @@
-public class ProductService {
-	public static List<Product__c> getAll() {
+public class OrderService {
+	public static List<Order__c> getAll() {
 		try {
-			List<Product__c> products =
-			[SELECT Name, Description__c, Type__c, Family__c, Image__c, Price__c FROM Product__c];
-			return products;
+			List<Order__c> orderList =
+			[SELECT Name, AccountId__c, TotalProductCount__c, TotalPrice__c FROM Order__c];
+			return orderList;
 		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
 	}
 
-	public static Product__c getByName(String name) {
+	public static Order__c getById(Id id) {
 		try {
-			Product__c product =
-			[SELECT Name, Description__c, Type__c, Family__c, Image__c, Price__c
-			FROM Product__c WHERE Name = :name LIMIT 1];
-
-			return product;
+			Order__c order =
+			[SELECT Name, AccountId__c, TotalProductCount__c, TotalPrice__c FROM Order__c WHERE Id = :id Limit 1];
+			return order;
 		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
 	}
 
-	public static void create(Product__c product) {
+	public static void create(Order__c order) {
 		try {
-			insert product;
-		} catch (DmlException e) {
+			insert order;
+		} catch (Exception e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
 	}
 
-	public static void create(Product__c[] products) {
+	public static void create(Order__c[] orders) {
+		Set<Type> exList = new Set<Type> { DmlException.class, ListException.class };
 		try {
-			insert products;
-		} catch (DmlException e) {
+			insert orders;
+		} catch (Exception e) {
+			if (!exList.contains(Type.forName(e.getTypeName()))) throw e;
+
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
@@ -43,16 +44,16 @@ public class ProductService {
 
 	public static void deleteById(Id id) {
 		try {
-			delete [select Id from Product__c where Id = :id];
+			delete [select Id from Order__c where Id = :id];
 		} catch (DmlException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
 	}
 
-	public static void updateProduct(Product__c product) {
+	public static void updateOrder(Order__c order) {
 		try {
-			update product;
+			update order;
 		} catch (DmlException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());

@@ -4,7 +4,7 @@ public class ProductService {
 			List<Product__c> products =
 			[SELECT Name, Description__c, Type__c, Family__c, Image__c, Price__c FROM Product__c];
 			return products;
-		} catch (Exception e) {
+		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
@@ -17,7 +17,7 @@ public class ProductService {
 			FROM Product__c WHERE Name = :name LIMIT 1];
 
 			return product;
-		} catch (Exception e) {
+		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
@@ -26,7 +26,7 @@ public class ProductService {
 	public static void create(Product__c product) {
 		try {
 			insert product;
-		} catch (Exception e) {
+		} catch (DmlException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
@@ -35,7 +35,7 @@ public class ProductService {
 	public static void create(Product__c[] products) {
 		try {
 			insert products;
-		} catch (Exception e) {
+		} catch (DmlException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
@@ -44,7 +44,16 @@ public class ProductService {
 	public static void deleteById(Id id) {
 		try {
 			delete [select Id from Product__c where Id = :id];
-		} catch (Exception e) {
+		} catch (DmlException e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
+
+	public static void updateProduct(Product__c product) {
+		try {
+			update product;
+		} catch (DmlException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
