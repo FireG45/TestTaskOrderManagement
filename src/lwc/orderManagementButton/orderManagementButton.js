@@ -17,7 +17,5 @@ export default class orderManagementButton extends NavigationMixin(LightningElem
         evt.stopPropagation();
 
         this[NavigationMixin.GenerateUrl](this.orderManagementPageRef).then(url => { window.open(url) })
-
-        //this[NavigationMixin.Navigate](this.orderManagementPageRef);
     }
 }
