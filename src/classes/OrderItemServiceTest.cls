@@ -3,7 +3,7 @@
 private class OrderItemServiceTest {
 
 	private static Account account1 = new Account(Name = 'Acc1');
-	private static Order__c order = new Order__c(Name = 'Order1', AccountId__c = account1.Id);
+	private static Order__c order;
 	private static Product__c product1 = new Product__c(Name = 'Product1', Price__c = 100);
 	private static Product__c product2 = new Product__c(Name = 'Product2', Price__c = 200);
 
@@ -18,21 +18,27 @@ private class OrderItemServiceTest {
 	@TestSetup
 	static void init() {
 		insert account1;
-		insert order;
+
+		account1 = [select Id, Name from Account WHERE Name = 'Acc1' limit 1];
+
+		insert new Order__c(
+				Name = 'Order1',
+				AccountId__c = account1.Id,
+				TotalPrice__c = 0,
+				TotalProductCount__c = 0);
 		insert product1;
 		insert product2;
 
-		account1 = [select Id, Name from Account WHERE Name = 'Acc1' limit 1];
 		order = [select Id, Name from Order__c where Name = 'Order1' limit 1];
 		product1 = [select Id, Name from Product__c where Name = 'Product1' limit 1];
 		product2 = [select Id, Name from Product__c where Name = 'Product2' limit 1];
 
 		List<OrderItem__c> refOrderItems = new List<OrderItem__c> {
-				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1),
-				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product2.Id, Quantity__c = 2),
-				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1),
-				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product2.Id, Quantity__c = 2),
-				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1)
+				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1, Price__c = 100),
+				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product2.Id, Quantity__c = 2, Price__c = 100),
+				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1, Price__c = 100),
+				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product2.Id, Quantity__c = 2, Price__c = 100),
+				new OrderItem__c(OrderId__c = order.Id, ProductId__c = product1.Id, Quantity__c = 1, Price__c = 100)
 		};
 
 		insert refOrderItems;

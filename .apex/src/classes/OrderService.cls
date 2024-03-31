@@ -10,6 +10,17 @@ public class OrderService {
 		}
 	}
 
+	public static Order__c getByName(String name) {
+		try {
+			Order__c order =
+			[SELECT Name, AccountId__c, TotalProductCount__c, TotalPrice__c FROM Order__c WHERE Name = :name Limit 1];
+			return order;
+		} catch (QueryException e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
+
 	public static Order__c getById(Id id) {
 		try {
 			Order__c order =
@@ -59,4 +70,5 @@ public class OrderService {
 			throw new HandledException(e.getMessage());
 		}
 	}
+
 }

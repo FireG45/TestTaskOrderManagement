@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ApexVcsIndex">
     <index-record>
-      <option name="path" value="/src/classes/HelloWorldTest.cls-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/triggers/MyHelloWorldTrigger.trigger-meta.xml" />
+      <option name="path" value="/src/classes/MyHelloWorld.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
@@ -14,7 +10,11 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/classes/MyHelloWorld.cls-meta.xml" />
+      <option name="path" value="/src/triggers/MyHelloWorldTrigger.trigger-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/classes/HelloWorldTest.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
   </component>

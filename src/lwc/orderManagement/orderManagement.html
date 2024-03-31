@@ -16,14 +16,14 @@
                                     <lightning-button label="Create Product">Create Product</lightning-button>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <c-cart-modal products={cart}></c-cart-modal>
+                                    <c-cart-modal products={cart} account={recordId}></c-cart-modal>
                                 </lightning-layout-item>
                             </lightning-layout>
                         </div>
 
                     </lightning-layout-item>
                     <lightning-layout>
-                        <lightning-layout-item padding="around-small" size="3" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                        <lightning-layout-item padding="around-small" size="1" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
                             <div>
                                 <lightning-card class="card"  title="Filter" >
                                     <lightning-radio-group name="radioGroupType"
@@ -42,7 +42,7 @@
                                 </lightning-card>
                             </div>
                         </lightning-layout-item>
-                        <lightning-layout-item padding="around-small" size="9" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                        <lightning-layout-item padding="around-small" size="11" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
                             <div class="page-section page-main">
                                 <lightning-card hide-header="true">
                                     <lightning-input

@@ -53,4 +53,9 @@ private class OrderManagementControllerTest {
 			System.assert(allProducts.contains(product));
 		}
 	}
+
+	static void testGetTypesAndFamilies() {
+		System.assertEquals(ProductService.getFamilies(), OrderManagementController.getFamilies());
+		System.assertEquals(ProductService.getTypes(), OrderManagementController.getTypes());
+	}
 }
