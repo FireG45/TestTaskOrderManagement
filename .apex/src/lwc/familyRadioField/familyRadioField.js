@@ -5,9 +5,10 @@ export default class FamilyRadioField extends LightningElement {
 
     get options() {
         return [
-            { label: 'Family1', value: '1' },
-            { label: 'Family2', value: '2' },
-            { label: 'Family3', value: '3' },
+            {label: 'None', value: ''},
+            {label: 'Family1', value: 'Family1'},
+            {label: 'Family2', value: 'Family1'},
+            {label: 'Family3', value: 'Family1'},
         ];
     }
 }

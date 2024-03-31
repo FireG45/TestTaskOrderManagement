@@ -25,22 +25,35 @@
                     </lightning-layout-item>
                     <lightning-layout>
                         <lightning-layout-item padding="around-small" size="3" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
-                            <div class="page-section page-right">
+                            <div>
                                 <lightning-card class="card"  title="Filter" >
-                                    <c-type-radio-field></c-type-radio-field>
-                                    <c-family-radio-field></c-family-radio-field>
+                                    <lightning-radio-group name="radioGroupType"
+                                                           label="Type:"
+                                                           options={types}
+                                                           value={type}
+                                                           type="radio"></lightning-radio-group>
+
+                                    <lightning-radio-group name="radioGroupFamily"
+                                                           label="Family:"
+                                                           options={families}
+                                                           value={family}
+                                                           type="radio"></lightning-radio-group>
                                 </lightning-card>
                             </div>
                         </lightning-layout-item>
                         <lightning-layout-item padding="around-small" size="9" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
                             <div class="page-section page-main">
                                 <lightning-card hide-header="true">
-                                    <lightning-input placeholder="Search..."></lightning-input>
+                                    <lightning-input
+                                            type="search"
+                                            placeholder="Search..."
+                                            onchange={setQuery}>
+                                    </lightning-input>
                                     <br/>
-                                    <div for:each={products} for:item="product" key={product.Id}>
-                                        <lightning-card  title={product.Name} class="slds-box">
+                                    <div class="slds-box" for:each={products} for:item="product" key={product.Id}>
+                                        <lightning-card  title={product.Name} >
                                             <p class="slds-p-horizontal_small">
-                                                {product.Description}
+                                                {product.Description__c}
                                             </p>
                                             <div slot="footer">
                                                 <lightning-button label="Add"></lightning-button>

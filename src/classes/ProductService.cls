@@ -12,10 +12,40 @@ public class ProductService {
 
 	public static List<Product__c> getFilteredBy(String type, String family) {
 		try {
+			if (type.length() == 0 && family.length() == 0) throw new QueryException('Empty Filters!');
 			return [
 					SELECT Id, Name, Description__c, Type__c, Family__c, Image__c, Price__c
 					FROM Product__c
-					WHERE Type__c LIKE :type Or Family__c LIKE :family
+					WHERE Type__c = :type OR Family__c = :family
+			];
+		} catch (QueryException e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
+
+	public static List<Product__c> search(String query) {
+		try {
+			return [
+					SELECT Id, Name, Description__c, Type__c, Family__c, Image__c, Price__c
+					FROM Product__c
+					WHERE Name Like :query Or Description__c Like :query
+			];
+		} catch (QueryException e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
+
+	public static List<Product__c> searchFiltered(String query, String type, String family) {
+		try {
+			return [
+					SELECT Id, Name, Description__c, Type__c, Family__c, Image__c, Price__c
+					FROM Product__c
+					WHERE
+					(Name Like :query Or Description__c Like :query)
+					AND
+					(Type__c = :type OR Family__c = :family)
 			];
 		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
@@ -70,5 +100,31 @@ public class ProductService {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());
 		}
+	}
+
+	public static List<String> getTypes() {
+		Schema.DescribeFieldResult fieldDescription = Product__c.Type__c.getDescribe();
+		List<Schema.PicklistEntry> entries = fieldDescription.getPicklistValues();
+
+		List<String> names = new List<String>();
+
+		for (Schema.PicklistEntry entry : entries) {
+			names.add(entry.getLabel());
+		}
+
+		return names;
+	}
+
+	public static List<String> getFamilies() {
+		Schema.DescribeFieldResult fieldDescription = Product__c.Family__c.getDescribe();
+		List<Schema.PicklistEntry> entries = fieldDescription.getPicklistValues();
+
+		List<String> names = new List<String>();
+
+		for (Schema.PicklistEntry entry : entries) {
+			names.add(entry.getLabel());
+		}
+
+		return names;
 	}
 }

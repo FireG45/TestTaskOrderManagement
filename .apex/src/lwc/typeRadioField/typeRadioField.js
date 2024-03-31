@@ -5,9 +5,10 @@ export default class TypeRadioField extends LightningElement {
 
     get options() {
         return [
-            { label: 'Type1', value: '1' },
-            { label: 'Type2', value: '2' },
-            { label: 'Type3', value: '3' },
+            {label: 'None', value: ''},
+            { label: 'Type1', value: 'Type1' },
+            { label: 'Type2', value: 'Type2' },
+            { label: 'Type3', value: 'Type3' },
         ];
     }
 }
