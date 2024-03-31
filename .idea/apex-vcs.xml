@@ -6,23 +6,15 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/orderManagement/orderManagement.html" />
-      <option name="type" value="MODIFIED" />
-    </index-record>
-    <index-record>
       <option name="path" value="/src/classes/HelloWorldController.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/classes/MyHelloWorld.cls-meta.xml" />
+      <option name="path" value="/src/classes/HelloWorldTest.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/orderManagement/orderManagement.js" />
-      <option name="type" value="MODIFIED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/classes/HelloWorldTest.cls-meta.xml" />
+      <option name="path" value="/src/classes/MyHelloWorld.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
   </component>

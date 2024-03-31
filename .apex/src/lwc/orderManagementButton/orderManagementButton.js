@@ -1,39 +1,24 @@
-import { LightningElement, api, wire } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+import { LightningElement, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+
 export default class orderManagementButton extends NavigationMixin(LightningElement) {
-    @api accountId;
-    accountData;
+    @api recordId;
 
-    @wire(getRecord, { recordId: '$accountId', fields: [ACCOUNT_OBJECT.Name, ACCOUNT_OBJECT.AccountNumber] })
-    account;
+    handleClick(evt) {
+        evt.preventDefault();
+        evt.stopPropagation();
+        console.log("ACC ID:" + this.recordId);
 
-    get accountName() {
-        return this.account.data ? getFieldValue(this.account.data, ACCOUNT_OBJECT.Name) : '';
-    }
-
-    get accountNumber() {
-        return this.account.data ? getFieldValue(this.account.data, ACCOUNT_OBJECT.AccountNumber) : '';
-    }
-
-    connectedCallback() {
-        this.accountData = {name : this.accountName, number : this.accountNumber}
         this.orderManagementPageRef = {
             type: 'standard__component',
             attributes: {
                 componentName: 'c__orderManagementWrapper'
             },
             state: {
-                c__recordId: this.accountId,
-                c__accountData: this.accountData,
+                c__recordId: this.recordId,
             }
         };
-    }
 
-    handleClick(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
         this[NavigationMixin.GenerateUrl](this.orderManagementPageRef).then(url => { window.open(url) })
     }
 }

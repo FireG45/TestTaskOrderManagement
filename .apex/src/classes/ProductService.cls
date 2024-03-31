@@ -2,8 +2,21 @@ public class ProductService {
 	public static List<Product__c> getAll() {
 		try {
 			List<Product__c> products =
-			[SELECT Name, Description__c, Type__c, Family__c, Image__c, Price__c FROM Product__c];
+			[SELECT Id, Name, Description__c, Type__c, Family__c, Image__c, Price__c FROM Product__c];
 			return products;
+		} catch (QueryException e) {
+			System.debug(LoggingLevel.ERROR, e.getMessage());
+			throw new HandledException(e.getMessage());
+		}
+	}
+
+	public static List<Product__c> getFilteredBy(String type, String family) {
+		try {
+			return [
+					SELECT Id, Name, Description__c, Type__c, Family__c, Image__c, Price__c
+					FROM Product__c
+					WHERE Type__c LIKE :type Or Family__c LIKE :family
+			];
 		} catch (QueryException e) {
 			System.debug(LoggingLevel.ERROR, e.getMessage());
 			throw new HandledException(e.getMessage());

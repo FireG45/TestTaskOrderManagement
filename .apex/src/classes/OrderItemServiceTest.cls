@@ -78,7 +78,7 @@ private class OrderItemServiceTest {
 		OrderItemService.create(refOrder);
 
 		OrderItem__c gotOrder =
-		[SELECT Name, OrderId__c, ProductId__c, Quantity__c, Price__c FROM OrderItem__c WHERE Name = 'NAME'];
+		[SELECT Name, OrderId__c, ProductId__c, Quantity__c, Price__c FROM OrderItem__c WHERE Name = 'NAME' LIMIT 1];
 		System.assertEquals(refOrder.OrderId__c, gotOrder.OrderId__c);
 		System.assertEquals(refOrder.ProductId__c, gotOrder.ProductId__c);
 	}

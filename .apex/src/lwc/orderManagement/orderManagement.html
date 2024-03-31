@@ -8,10 +8,10 @@
 
                             <lightning-layout class="slds-m-horizontal_none" >
                                 <lightning-layout-item padding="around-small">
-                                    <h1>{accountName}</h1>
+                                    <h1>{accountInfo.Name}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <h1>{accountNumber}</h1>
+                                    <h1>{accountInfo.AccountNumber}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small" alignment-bump="left">
                                     <lightning-button label="Create Product">Create Product</lightning-button>
@@ -38,7 +38,7 @@
                                     <lightning-input placeholder="Search..."></lightning-input>
                                     <br/>
                                     <div for:each={products} for:item="product" key={product.Id}>
-                                        <lightning-card  title="product.Name">
+                                        <lightning-card  title={product.Name} class="slds-box">
                                             <p class="slds-p-horizontal_small">
                                                 {product.Description}
                                             </p>
