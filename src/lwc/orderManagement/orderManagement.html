@@ -8,10 +8,10 @@
 
                             <lightning-layout class="slds-m-horizontal_none" >
                                 <lightning-layout-item padding="around-small">
-                                    <h1>(Account Name)</h1>
+                                    <h1>{accountName}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <h1>(Account Number)</h1>
+                                    <h1>{accountNumber}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small" alignment-bump="left">
                                     <lightning-button label="Create Product">Create Product</lightning-button>
@@ -32,21 +32,22 @@
                                 </lightning-card>
                             </div>
                         </lightning-layout-item>
-                        <lightning-layout-item padding="around-small" size="6" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                        <lightning-layout-item padding="around-small" size="9" class="custom-box slds-box slds-p-around_medium slds-text-align_center">
                             <div class="page-section page-main">
                                 <lightning-card hide-header="true">
                                     <lightning-input placeholder="Search..."></lightning-input>
-                                    <br/><br/><br/>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt
-                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                        reprehenderit
-                                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                                        occaecat
-                                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                                        laborum.
-                                    </p>
+                                    <br/>
+                                    <div for:each={products} for:item="product" key={product.Id}>
+                                        <lightning-card  title="product.Name">
+                                            <p class="slds-p-horizontal_small">
+                                                {product.Description}
+                                            </p>
+                                            <div slot="footer">
+                                                <lightning-button label="Add"></lightning-button>
+                                                <lightning-button label="Details"></lightning-button>
+                                            </div>
+                                        </lightning-card>
+                                    </div>
                                 </lightning-card>
                             </div>
                         </lightning-layout-item>
