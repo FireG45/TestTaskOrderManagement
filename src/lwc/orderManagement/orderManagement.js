@@ -5,6 +5,7 @@ import getAccountInfo from "@salesforce/apex/OrderManagementController.getAccoun
 import getAllWithSearchAndFilter from "@salesforce/apex/OrderManagementController.getAllWithSearchAndFilter";
 import getTypes from "@salesforce/apex/OrderManagementController.getTypes";
 import getFamilies from "@salesforce/apex/OrderManagementController.getFamilies";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class orderManagement extends LightningElement {
     @track currentPageReference;
@@ -59,6 +60,23 @@ export default class orderManagement extends LightningElement {
     family = '';
     @track
     query = ''
+
+    @track
+    cart = []
+
+    openDetails = false;
+    detailsId;
+
+    addToCart(e) {
+        this.cart.push(e.target.value)
+
+        const evt = new ShowToastEvent({
+            title: 'Product added',
+            message: '\"' + e.target.value.Name + '\" is successfully added to cart',
+            variant: "success",
+        });
+        this.dispatchEvent(evt);
+    }
 
     connectedCallback() {
         const pageReference = this.currentPageReference;

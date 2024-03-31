@@ -5,19 +5,18 @@
                 <lightning-layout-item padding="around-small" size="12">
                     <lightning-layout-item flexibility="auto" padding="around-small" size="12">
                         <div class="slds-box">
-
                             <lightning-layout class="slds-m-horizontal_none" >
                                 <lightning-layout-item padding="around-small">
-                                    <h1>{accountInfo.Name}</h1>
+                                    <h1>Account Name: {accountInfo.Name}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <h1>{accountInfo.AccountNumber}</h1>
+                                    <h1>Account Number: {accountInfo.AccountNumber}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small" alignment-bump="left">
                                     <lightning-button label="Create Product">Create Product</lightning-button>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <lightning-button label="Cart"></lightning-button>
+                                    <c-cart-modal products={cart}></c-cart-modal>
                                 </lightning-layout-item>
                             </lightning-layout>
                         </div>
@@ -58,8 +57,9 @@
                                                 {product.Description__c}
                                             </p>
                                             <div slot="footer">
-                                                <lightning-button label="Add"></lightning-button>
-                                                <lightning-button label="Details"></lightning-button>
+                                                <lightning-button label="Add" onclick={addToCart} value={product}>
+                                                </lightning-button>
+                                                <c-details-modal record={product.Id}></c-details-modal>
                                             </div>
                                         </lightning-card>
                                     </div>
