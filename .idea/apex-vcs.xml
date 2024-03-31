@@ -6,15 +6,15 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
+      <option name="path" value="/src/triggers/MyHelloWorldTrigger.trigger-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
       <option name="path" value="/src/classes/HelloWorldTest.cls-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
       <option name="path" value="/src/classes/HelloWorldController.cls-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/triggers/MyHelloWorldTrigger.trigger-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
   </component>

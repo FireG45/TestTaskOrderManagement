@@ -31,13 +31,15 @@
                                                            label="Type:"
                                                            options={types}
                                                            value={type}
-                                                           type="radio"></lightning-radio-group>
+                                                           type="radio"
+                                                           onchange={setType}></lightning-radio-group>
 
                                     <lightning-radio-group name="radioGroupFamily"
                                                            label="Family:"
                                                            options={families}
                                                            value={family}
-                                                           type="radio"></lightning-radio-group>
+                                                           type="radio"
+                                                           onchange={setFamily}></lightning-radio-group>
                                 </lightning-card>
                             </div>
                         </lightning-layout-item>

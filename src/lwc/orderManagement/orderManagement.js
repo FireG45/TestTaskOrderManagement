@@ -16,12 +16,33 @@ export default class orderManagement extends LightningElement {
 
     setQuery(evt) {
         this.query = evt.target.value;
+        this.loadProducts();
+    }
+
+    setType(evt) {
+        this.type = evt.target.value;
+        this.loadProducts();
+    }
+
+    setFamily(evt) {
+        this.family = evt.target.value;
+        this.loadProducts();
+    }
+
+    loadProducts() {
+        console.log("LOAD");
+        getAllWithSearchAndFilter({query: this.query, type: this.type, family: this.family})
+            .then((result) => {
+                this.products = result;
+                console.log("type" + this.type + " family " + this.family);
+            })
     }
 
     userId = Id;
     recordId = '';
     accountInfo = {};
 
+    @track
     products = [];
 
     types= [
@@ -73,10 +94,7 @@ export default class orderManagement extends LightningElement {
                     }
                 })
 
-            getAllWithSearchAndFilter({query: this.query, type: this.type, family: this.family})
-                .then((result) => {
-                    this.products = result;
-            })
+            this.loadProducts();
         }
     }
 }
