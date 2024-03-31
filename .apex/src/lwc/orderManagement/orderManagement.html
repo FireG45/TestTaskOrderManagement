@@ -13,7 +13,7 @@
                                     <h1>Account Number: {accountInfo.AccountNumber}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small" alignment-bump="left">
-                                    <lightning-button label="Create Product">Create Product</lightning-button>
+                                    <c-product-create-modal if:true={isManager}></c-product-create-modal>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
                                     <c-cart-modal products={cart} account={recordId}></c-cart-modal>

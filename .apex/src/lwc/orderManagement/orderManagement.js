@@ -5,6 +5,7 @@ import getAccountInfo from "@salesforce/apex/OrderManagementController.getAccoun
 import getAllWithSearchAndFilter from "@salesforce/apex/OrderManagementController.getAllWithSearchAndFilter";
 import getTypes from "@salesforce/apex/OrderManagementController.getTypes";
 import getFamilies from "@salesforce/apex/OrderManagementController.getFamilies";
+import isUserManager from "@salesforce/apex/OrderManagementController.isUserManager";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class orderManagement extends LightningElement {
@@ -64,6 +65,8 @@ export default class orderManagement extends LightningElement {
     @track
     cart = []
 
+    isManager = false;
+
     openDetails = false;
     detailsId;
 
@@ -110,6 +113,11 @@ export default class orderManagement extends LightningElement {
                     for (let i = 0; i < result.length; i++) {
                         this.types.push({label: result[i], value: result[i]});
                     }
+                })
+
+            isUserManager({id: this.userId})
+                .then((result) => {
+                    this.isManager = result;
                 })
 
             this.loadProducts();

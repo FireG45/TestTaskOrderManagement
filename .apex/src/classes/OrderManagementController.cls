@@ -57,4 +57,9 @@ public class OrderManagementController {
 
 		insert orderItems;
 	}
+
+	@AuraEnabled
+	public static boolean isUserManager(String id) {
+		return UserInfoService.isManger(id);
+	}
 }
