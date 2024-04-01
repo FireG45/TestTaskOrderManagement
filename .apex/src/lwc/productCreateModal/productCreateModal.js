@@ -1,25 +1,48 @@
-import {api, LightningElement, track} from 'lwc';
-import checkout from "@salesforce/apex/OrderManagementController.checkout";
-
-const columns = [
-    'Name',
-    'Description__c',
-    'Type__c',
-    'Family__c',
-    'Price__c',
-];
+import {api, LightningElement} from 'lwc';
+import getTypes from "@salesforce/apex/OrderManagementController.getTypes";
+import getFamilies from "@salesforce/apex/OrderManagementController.getFamilies";
+import createProduct from "@salesforce/apex/OrderManagementController.createProduct";
+import getNewImageLink from "@salesforce/apex/OrderManagementController.getNewImageLink";
 
 export default class CartModal extends LightningElement {
-    @track isModalOpen = false;
+    isModalOpen = false;
 
-    @api products = []
     @api account;
 
-    data = [];
-    fields = columns;
+    submitted = false;
 
-    connectedCallback() {
-        this.data = this.products;
+    name = '';
+    desc = '';
+    type = '';
+    family = '';
+    image = '';
+    price = 0;
+
+    types = []
+    families = []
+
+    setName(evt) {
+        this.name = evt.target.value;
+    }
+
+    setDesc(evt) {
+        this.desc = evt.target.value;
+    }
+
+    setType(evt) {
+        this.type = evt.target.value;
+    }
+
+    setFamily(evt) {
+        this.family = evt.target.value;
+    }
+
+    setImage(evt) {
+        this.image = evt.target.value;
+    }
+
+    setPrice(evt) {
+        this.price = evt.target.value;
     }
 
     openModal() {
@@ -30,7 +53,53 @@ export default class CartModal extends LightningElement {
         this.isModalOpen = false;
     }
 
-    submitDetails() {
+    connectedCallback() {
+        getFamilies()
+            .then((result) => {
+                this.families = [
+                    {label: 'None', value: ''},
+                ]
+                for (let i = 0; i < result.length; i++) {
+                    this.families.push({label: result[i], value: result[i]});
+                }
+            })
 
+        getTypes()
+            .then((result) => {
+                this.types = [
+                    {label: 'None', value: ''},
+                ]
+                for (let i = 0; i < result.length; i++) {
+                    this.types.push({label: result[i], value: result[i]});
+                }
+            })
+    }
+
+    insertProduct() {
+        createProduct({
+            product: {
+                Name: this.name,
+                Description__c: this.desc,
+                Type__c: this.type,
+                Family__c: this.family,
+                Image__c: this.image,
+                Price__c: this.price
+            }
+        }).then(() => this.closeModal());
+    }
+
+    submitDetails() {
+        if (!this.image || this.image.length === 0) {
+            getNewImageLink({product: this.name})
+                .then((result) => {
+                    const obj = JSON.parse(result);
+                    if (obj.data[0]) {
+                        this.image = obj.data[0].imageurl;
+                        this.insertProduct();
+                    }
+                })
+        } else {
+            this.insertProduct();
+        }
     }
 }

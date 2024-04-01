@@ -7,10 +7,12 @@
                         <div class="slds-box">
                             <lightning-layout class="slds-m-horizontal_none" >
                                 <lightning-layout-item padding="around-small">
-                                    <h1>Account Name: {accountInfo.Name}</h1>
+                                    <h1>Account Name:</h1>
+                                    <h1>{accountInfo.Name}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small">
-                                    <h1>Account Number: {accountInfo.AccountNumber}</h1>
+                                    <h1>Account Number:</h1>
+                                    <h1>{accountInfo.AccountNumber}</h1>
                                 </lightning-layout-item>
                                 <lightning-layout-item padding="around-small" alignment-bump="left">
                                     <c-product-create-modal if:true={isManager}></c-product-create-modal>
@@ -62,6 +64,8 @@
                                                 <c-details-modal record={product.Id}></c-details-modal>
                                             </div>
                                         </lightning-card>
+                                        <br/>
+                                        <br/>
                                     </div>
                                 </lightning-card>
                             </div>

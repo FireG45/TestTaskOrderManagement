@@ -62,4 +62,22 @@ public class OrderManagementController {
 	public static boolean isUserManager(String id) {
 		return UserInfoService.isManger(id);
 	}
+
+	@AuraEnabled
+	public static void createProduct(Product__c product) {
+		ProductService.create(product);
+	}
+
+	@AuraEnabled
+	public static String getNewImageLink(String product) {
+		HttpRequest request = new HttpRequest();
+		request.setEndPoint('http://www.glyffix.com/api/Image?word=' + product);
+		request.setMethod('GET');
+		request.setHeader('Accept', 'application/json');
+		Http httpProtocol = new Http();
+		HttpResponse response = httpProtocol.send(request);
+
+		System.debug(response.getBody());
+		return response.getBody();
+	}
 }

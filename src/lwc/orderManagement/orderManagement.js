@@ -32,11 +32,9 @@ export default class orderManagement extends LightningElement {
     }
 
     loadProducts() {
-        console.log("LOAD");
         getAllWithSearchAndFilter({query: this.query, type: this.type, family: this.family})
             .then((result) => {
                 this.products = result;
-                console.log("type" + this.type + " family " + this.family);
             })
     }
 
@@ -95,7 +93,6 @@ export default class orderManagement extends LightningElement {
 
             getFamilies()
                 .then((result) => {
-                    console.log("FAMILIES RES:" + result)
                     this.families = [
                         {label: 'Any', value: ''},
                     ]
@@ -106,7 +103,6 @@ export default class orderManagement extends LightningElement {
 
             getTypes()
                 .then((result) => {
-                    console.log("TYPES RES:" + result)
                     this.types = [
                         {label: 'Any', value: ''},
                     ]
