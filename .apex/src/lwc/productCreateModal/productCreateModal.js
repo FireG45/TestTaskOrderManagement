@@ -85,7 +85,9 @@ export default class CartModal extends LightningElement {
                 Image__c: this.image,
                 Price__c: this.price
             }
-        }).then(() => this.closeModal());
+        }).then(() => {
+            window.location.reload();
+        });
     }
 
     submitDetails() {

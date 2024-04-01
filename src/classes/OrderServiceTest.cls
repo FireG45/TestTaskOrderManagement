@@ -170,4 +170,40 @@ private class OrderServiceTest {
 
 		System.assert(throwsEx);
 	}
+
+	@IsTest
+	static void testGetByName() {
+		String name = 'OrderTESTNAME';
+
+		insert new Order__c(
+				Name = name,
+				AccountId__c = account1.Id,
+				TotalProductCount__c = 0,
+				TotalPrice__c = 0);
+
+		Order__c refOrder = [
+				SELECT Id, Name, AccountId__c, TotalProductCount__c, TotalPrice__c
+				FROM Order__c
+				WHERE Name = :name
+		];
+
+		Order__c order = OrderService.getByName(name);
+		System.assertEquals(refOrder, order);
+	}
+
+
+	@IsTest
+	static void testGetByNameNotFoundExceptions() {
+		String name = 'NOTFOUND';
+
+		Boolean throwsEx = false;
+
+		try {
+			Order__c order = OrderService.getByName(name);
+		} catch (HandledException ex) {
+			throwsEx = true;
+		}
+
+		System.assert(throwsEx);
+	}
 }

@@ -54,8 +54,75 @@ private class OrderManagementControllerTest {
 		}
 	}
 
+	@IsTest
 	static void testGetTypesAndFamilies() {
 		System.assertEquals(ProductService.getFamilies(), OrderManagementController.getFamilies());
 		System.assertEquals(ProductService.getTypes(), OrderManagementController.getTypes());
+	}
+
+	@IsTest
+	static void testIsUserManager() {
+		User user = [SELECT Id, IsManager__c FROM User LIMIT 1];
+
+		System.assertEquals(user.IsManager__c, OrderManagementController.isUserManager(user.Id));
+	}
+
+	@IsTest
+	static void testCreateProduct() {
+		Product__c product =
+				new Product__c(Name = 'NAME', Description__c = 'DESC', Type__c = 'Type1', Family__c = 'Family1');
+		OrderManagementController.createProduct(product);
+		Product__c created =
+			[SELECT Name, Description__c, Type__c, Family__c FROM Product__c WHERE Name = 'NAME' LIMIT 1];
+		System.assertEquals(product, created);
+	}
+
+	@IsTest
+	static void testCheckout() {
+		insert new Account(Name = 'ACC');
+		Account acc = [SELECT Id, Name FROM Account WHERE Name = 'ACC'];
+
+		Product__c[] products = new Product__c[] {
+			new Product__c(Name = 'P1',
+					Description__c = 'D1',
+					Type__c = 'Type1',
+					Family__c = 'Family1',
+					Image__c = '',
+					Price__c = 100
+			),
+			new Product__c(Name = 'P2',
+					Description__c = 'D2',
+					Type__c = 'Type1',
+					Family__c = 'Family1',
+					Image__c = '',
+					Price__c = 100
+			),
+			new Product__c(Name = 'P2',
+						Description__c = 'D2',
+						Type__c = 'Type1',
+						Family__c = 'Family1',
+						Image__c = '',
+						Price__c = 100
+			)
+		};
+
+		insert products;
+
+		Product__c[] createdProducts = [SELECT Id, Price__c FROM Product__c WHERE Name in ('P1', 'P2', 'P3')];
+
+		String[] productIds = new String[products.size()];
+		for (Integer i = 0; i < products.size(); i++) productIds[i] = products[i].Id;
+
+		OrderManagementController.checkout(createdProducts, acc.Id);
+
+		OrderItem__c[] orderItems = [
+				SELECT Id, Quantity__c, Price__c, ProductId__c
+				FROM OrderItem__c
+		];
+
+		System.assertEquals(products.size(), orderItems.size());
+		for (Integer i = 0; i < orderItems.size(); i++) {
+			System.assertEquals(productIds[i], String.valueOf(orderItems[i].ProductId__c));
+		}
 	}
 }

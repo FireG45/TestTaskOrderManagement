@@ -34,7 +34,7 @@ export default class CartModal extends LightningElement {
         checkout({cart: this.products, accountId: this.account}).then(() => {
             window.open(
                 'https://test20-dev-ed.develop.lightning.force.com/lightning/r/Account/' + this.account
-                + '/related/Orders1__r/view'
+                + '/related/Orders1__r/view',"_self"
             )
         })
     }
